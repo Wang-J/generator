@@ -12,13 +12,13 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 /**
  * @author Jeff Butler
  */
-public class JavaServiceGeneratorConfiguration extends PropertyHolder {
+public class JavaServiceImplGeneratorConfiguration extends PropertyHolder {
 
     private String targetPackage;
     private String targetProject;
     private String implementationPackage;
 
-    public JavaServiceGeneratorConfiguration() {
+    public JavaServiceImplGeneratorConfiguration() {
         super();
     }
 

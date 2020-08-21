@@ -11,9 +11,9 @@ import java.util.Set;
 import java.util.TreeSet;
 
 
-public class JavaServiceGenerator extends AbstractJavaGenerator {
+public class JavaServiceImplGenerator extends AbstractJavaGenerator {
 
-    public JavaServiceGenerator() {
+    public JavaServiceImplGenerator() {
         super();
     }
 
@@ -25,7 +25,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
     public List<CompilationUnit> getCompilationUnits() {
 
 
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceType());
+        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceImplType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         topLevelClass.addAnnotation("@Service");

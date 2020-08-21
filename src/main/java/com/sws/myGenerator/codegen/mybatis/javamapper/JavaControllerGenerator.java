@@ -42,7 +42,7 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
 
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
-        FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceType());
+        FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceImplType());
         serviceTypeName = serviceType.getShortName().substring(0, 1).toLowerCase() + serviceType.getShortName().substring(1);
         field.setType(serviceType);
         field.setName(serviceTypeName);

@@ -30,7 +30,7 @@ import static org.mybatis.generator.internal.util.messages.Messages.getString;
 public class MyContext extends PropertyHolder {
 
     private String id;
-    private JavaServiceGeneratorConfiguration javaServiceGeneratorConfiguration;
+    private JavaServiceImplGeneratorConfiguration javaServiceImplGeneratorConfiguration;
     private JavaControllerGeneratorConfiguration javaControllerGeneratorConfiguration;
     private Context context;
     private PluginAggregator pluginAggregator;
@@ -51,12 +51,12 @@ public class MyContext extends PropertyHolder {
         return context;
     }
 
-    public void setJavaServiceGeneratorConfiguration(JavaServiceGeneratorConfiguration javaServiceGeneratorConfiguration) {
-        this.javaServiceGeneratorConfiguration = javaServiceGeneratorConfiguration;
+    public void setJavaServiceImplGeneratorConfiguration(JavaServiceImplGeneratorConfiguration javaServiceImplGeneratorConfiguration) {
+        this.javaServiceImplGeneratorConfiguration = javaServiceImplGeneratorConfiguration;
     }
 
-    public JavaServiceGeneratorConfiguration getJavaServiceGeneratorConfiguration() {
-        return javaServiceGeneratorConfiguration;
+    public JavaServiceImplGeneratorConfiguration getJavaServiceImplGeneratorConfiguration() {
+        return javaServiceImplGeneratorConfiguration;
     }
 
     public JavaControllerGeneratorConfiguration getJavaControllerGeneratorConfiguration() {
@@ -97,8 +97,8 @@ public class MyContext extends PropertyHolder {
         XmlElement xmlElement = new XmlElement("context"); //$NON-NLS-1$
         xmlElement.addAttribute(new Attribute("id", id)); //$NON-NLS-1$
         addPropertyXmlElements(xmlElement);
-        if (javaServiceGeneratorConfiguration != null) {
-            xmlElement.addElement(javaServiceGeneratorConfiguration.toXmlElement());
+        if (javaServiceImplGeneratorConfiguration != null) {
+            xmlElement.addElement(javaServiceImplGeneratorConfiguration.toXmlElement());
         }
         return xmlElement;
     }
