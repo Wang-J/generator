@@ -2,8 +2,6 @@ package com.sws.myGenerator.main;
 
 import com.sws.myGenerator.config.ConfigurationParser;
 import com.sws.myGenerator.config.MyConfiguration;
-
-
 import org.mybatis.generator.api.MyBatisGenerator;
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.exception.InvalidConfigurationException;

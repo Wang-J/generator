@@ -1,18 +1,15 @@
 package com.sws.myGenerator.config;
 
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
+import com.sws.myGenerator.codegen.XmlConstants;
+import org.mybatis.generator.api.dom.xml.Document;
+import org.mybatis.generator.api.dom.xml.XmlElement;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.exception.InvalidConfigurationException;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.sws.myGenerator.codegen.XmlConstants;
-import org.mybatis.generator.api.dom.xml.Document;
-import org.mybatis.generator.api.dom.xml.XmlElement;
-
-import org.mybatis.generator.config.Configuration;
-import org.mybatis.generator.exception.InvalidConfigurationException;
-
-
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 
 public class MyConfiguration {
@@ -21,17 +18,16 @@ public class MyConfiguration {
     private List<MyContext> contexts;
     private Configuration originalConfig;
 
-    public void setOriginalConfig(Configuration originalConfig){
+    public void setOriginalConfig(Configuration originalConfig) {
         this.originalConfig = originalConfig;
     }
 
-    public Configuration getOriginalConfig(){
+    public Configuration getOriginalConfig() {
         return originalConfig;
     }
 
 
-
-    public MyConfiguration(Configuration originalConfig){
+    public MyConfiguration(Configuration originalConfig) {
         super();
         contexts = new ArrayList<MyContext>();
         this.originalConfig = originalConfig;
@@ -56,6 +52,7 @@ public class MyConfiguration {
     public List<MyContext> getContexts() {
         return contexts;
     }
+
     public void addContext(MyContext context) {
         contexts.add(context);
     }

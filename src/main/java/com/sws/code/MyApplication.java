@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 public class MyApplication {
 
     @RequestMapping("/")
-    public String index(){
+    public String index() {
         return "Hello SpringBoot";
     }
 
-    public static  void main(String[] args){
+    public static void main(String[] args) {
         SpringApplication.run(MyApplication.class);
     }
 }

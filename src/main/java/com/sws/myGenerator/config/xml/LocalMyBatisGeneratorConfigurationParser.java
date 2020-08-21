@@ -1,18 +1,11 @@
 package com.sws.myGenerator.config.xml;
 
-
-import static org.mybatis.generator.internal.util.StringUtility.stringHasValue;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.Properties;
-
 import com.sws.myGenerator.config.JavaControllerGeneratorConfiguration;
 import com.sws.myGenerator.config.JavaServiceGeneratorConfiguration;
 import com.sws.myGenerator.config.MyConfiguration;
 import com.sws.myGenerator.config.MyContext;
-import org.mybatis.generator.config.*;
+import org.mybatis.generator.config.Configuration;
+import org.mybatis.generator.config.PropertyHolder;
 import org.mybatis.generator.exception.XMLParserException;
 import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.internal.util.StringUtility;
@@ -22,6 +15,10 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
+import java.util.Properties;
 
 public class LocalMyBatisGeneratorConfigurationParser {
     private Properties extraProperties;
@@ -29,7 +26,7 @@ public class LocalMyBatisGeneratorConfigurationParser {
 
     private Configuration orginalConfig;
 
-    public LocalMyBatisGeneratorConfigurationParser(Properties extraProperties,Configuration orginalConfig) {
+    public LocalMyBatisGeneratorConfigurationParser(Properties extraProperties, Configuration orginalConfig) {
         super();
         if (extraProperties == null) {
             this.extraProperties = new Properties();
@@ -40,11 +37,11 @@ public class LocalMyBatisGeneratorConfigurationParser {
         this.orginalConfig = orginalConfig;
     }
 
-    public void setOrginalConfig(Configuration orginalConfig){
+    public void setOrginalConfig(Configuration orginalConfig) {
         this.orginalConfig = orginalConfig;
     }
 
-    public Configuration getOrginalConfig(){
+    public Configuration getOrginalConfig() {
         return orginalConfig;
     }
 
@@ -82,7 +79,7 @@ public class LocalMyBatisGeneratorConfigurationParser {
         }
     }
 
-    public MyConfiguration  parseConfiguration(Element rootNode) throws XMLParserException {
+    public MyConfiguration parseConfiguration(Element rootNode) throws XMLParserException {
         MyConfiguration configuration = new MyConfiguration(orginalConfig);
         NodeList nodeList = rootNode.getChildNodes();
         for (int i = 0; i < nodeList.getLength(); i++) {
@@ -116,7 +113,7 @@ public class LocalMyBatisGeneratorConfigurationParser {
                 continue;
             }
 
-           if ("javaServiceGenerator".equals(childNode.getNodeName())) {
+            if ("javaServiceGenerator".equals(childNode.getNodeName())) {
                 //context添加javaServiceGenerator标签解析
                 parseJavaServiceGenerator(context, childNode);
             }

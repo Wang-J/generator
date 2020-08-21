@@ -6,7 +6,6 @@ import com.sws.myGenerator.codegen.mybatis.javamapper.JavaControllerGenerator;
 import com.sws.myGenerator.codegen.mybatis.javamapper.JavaServiceGenerator;
 import com.sws.myGenerator.config.JavaControllerGeneratorConfiguration;
 import com.sws.myGenerator.config.JavaServiceGeneratorConfiguration;
-import com.sws.myGenerator.config.MyConfiguration;
 import com.sws.myGenerator.config.MyContext;
 import org.mybatis.generator.api.GeneratedJavaFile;
 import org.mybatis.generator.api.GeneratedXmlFile;
@@ -15,11 +14,13 @@ import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.api.dom.java.CompilationUnit;
 import org.mybatis.generator.codegen.AbstractGenerator;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
-import org.mybatis.generator.config.*;
+import org.mybatis.generator.config.JavaClientGeneratorConfiguration;
+import org.mybatis.generator.config.ModelType;
+import org.mybatis.generator.config.PropertyHolder;
+import org.mybatis.generator.config.PropertyRegistry;
 import org.mybatis.generator.internal.rules.ConditionalModelRules;
 import org.mybatis.generator.internal.rules.FlatModelRules;
 import org.mybatis.generator.internal.rules.HierarchicalModelRules;
-import org.mybatis.generator.internal.util.StringUtility;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -35,23 +36,24 @@ public class MyIntrospectedTable extends IntrospectedTable {
     protected Map<MyInternalAttribute, String> internalAttributes;
     protected IntrospectedTable oldIntrospectedTabke;
 
-    public void setOldIntrospectedTabke(IntrospectedTable oldIntrospectedTabke){
+    public void setOldIntrospectedTabke(IntrospectedTable oldIntrospectedTabke) {
         this.oldIntrospectedTabke = oldIntrospectedTabke;
     }
 
-    public IntrospectedTable getOldIntrospectedTabke(){
+    public IntrospectedTable getOldIntrospectedTabke() {
         return this.oldIntrospectedTabke;
     }
+
     protected enum MyInternalAttribute {
         ATTR_SERVICE_TYPE,
         ATTR_CONTROLLER_TYPE
     }
 
-    public void setMycontext(MyContext mycontext){
+    public void setMycontext(MyContext mycontext) {
         this.mycontext = mycontext;
     }
 
-    public MyContext getMycontext(){
+    public MyContext getMycontext() {
         return mycontext;
     }
 
@@ -68,7 +70,6 @@ public class MyIntrospectedTable extends IntrospectedTable {
     }
 
 
-
     public void initialize() {
         this.context = this.mycontext.getContext();
         this.fullyQualifiedTable = this.oldIntrospectedTabke.getFullyQualifiedTable();
@@ -78,7 +79,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
         this.setBaseRecordType(this.oldIntrospectedTabke.getBaseRecordType());
         this.setDeleteByPrimaryKeyStatementId(this.oldIntrospectedTabke.getDeleteByPrimaryKeyStatementId());
         this.setPrimaryKeyType(this.oldIntrospectedTabke.getPrimaryKeyType());
-        this.primaryKeyColumns= this.oldIntrospectedTabke.getPrimaryKeyColumns();
+        this.primaryKeyColumns = this.oldIntrospectedTabke.getPrimaryKeyColumns();
 
         calculateXmlAttributes();
         calculateJavaClientAttributes();
@@ -96,6 +97,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
 
         context.getPlugins().initialized(this);
     }
+
     protected void calculateJavaControllerAttributes() {
         if (mycontext.getJavaControllerGeneratorConfiguration() == null) {
             return;
@@ -154,6 +156,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
         setBlobColumnListId("Blob_Column_List"); //$NON-NLS-1$
         setMyBatis3UpdateByExampleWhereClauseId("Update_By_Example_Where_Clause"); //$NON-NLS-1$
     }
+
     protected void calculateJavaClientAttributes() {
         if (context.getJavaClientGeneratorConfiguration() == null) {
             return;
@@ -207,6 +210,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
         sb.append("Example"); //$NON-NLS-1$
         setExampleType(sb.toString());
     }
+
     protected String calculateJavaClientInterfacePackage() {
         JavaClientGeneratorConfiguration config = this.context.getJavaClientGeneratorConfiguration();
         if (config == null) {
@@ -256,15 +260,12 @@ public class MyIntrospectedTable extends IntrospectedTable {
     }
 
 
-
-
-
     @Override
     public void calculateGenerators(List<String> warnings,
                                     ProgressCallback progressCallback) {
 
         calculateJavaServiceGenerators(warnings, progressCallback);
-        calculateJavaControllerGenerators(warnings,progressCallback);
+        calculateJavaControllerGenerators(warnings, progressCallback);
     }
 
 
@@ -313,6 +314,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
         abstractGenerator.setProgressCallback(progressCallback);
         abstractGenerator.setWarnings(warnings);
     }
+
     public String getServiceType() {
         return internalAttributes.get(MyInternalAttribute.ATTR_SERVICE_TYPE);
     }
@@ -320,6 +322,7 @@ public class MyIntrospectedTable extends IntrospectedTable {
     public String getControllerType() {
         return internalAttributes.get(MyInternalAttribute.ATTR_CONTROLLER_TYPE);
     }
+
     @Override
     public List<GeneratedJavaFile> getGeneratedJavaFiles() {
         List<GeneratedJavaFile> answer = new ArrayList<GeneratedJavaFile>();
@@ -366,6 +369,6 @@ public class MyIntrospectedTable extends IntrospectedTable {
 
     @Override
     public boolean requiresXMLGenerator() {
-       return false;
+        return false;
     }
 }

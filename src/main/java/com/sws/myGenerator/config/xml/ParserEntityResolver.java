@@ -1,13 +1,12 @@
 package com.sws.myGenerator.config.xml;
 
-import java.io.IOException;
-import java.io.InputStream;
-
-
 import com.sws.myGenerator.codegen.XmlConstants;
 import org.xml.sax.EntityResolver;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class ParserEntityResolver implements EntityResolver {
 
@@ -15,6 +14,7 @@ public class ParserEntityResolver implements EntityResolver {
         super();
     }
 
+    @Override
     public InputSource resolveEntity(String publicId, String systemId) throws SAXException, IOException {
         if (XmlConstants.MYBATIS_GENERATOR_CONFIG_SYSTEM_ID
                 .equalsIgnoreCase(systemId)) {

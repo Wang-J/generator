@@ -4,6 +4,7 @@ import com.sws.myGenerator.api.MyIntrospectedTable;
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.dom.java.*;
 import org.mybatis.generator.codegen.AbstractJavaGenerator;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -12,9 +13,10 @@ import java.util.TreeSet;
 
 public class JavaServiceGenerator extends AbstractJavaGenerator {
 
-    public JavaServiceGenerator(){
+    public JavaServiceGenerator() {
         super();
     }
+
     public boolean isSimple = true;
 
     public String daoTypeName = "";
@@ -23,7 +25,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
     public List<CompilationUnit> getCompilationUnits() {
 
 
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable)introspectedTable).getServiceType());
+        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         topLevelClass.addAnnotation("@Service");
@@ -34,7 +36,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
         Field field = new Field();
         field.setVisibility(JavaVisibility.PROTECTED);
         FullyQualifiedJavaType daoType = new FullyQualifiedJavaType(introspectedTable.getMyBatis3JavaMapperType());
-        daoTypeName = daoType.getShortName().substring(0, 1).toLowerCase()+daoType.getShortName().substring(1);
+        daoTypeName = daoType.getShortName().substring(0, 1).toLowerCase() + daoType.getShortName().substring(1);
         field.setType(daoType);
         field.setName(daoTypeName);
         field.addAnnotation("@Autowired");
@@ -57,7 +59,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         importedTypes.add(parameterType1);
         method.addParameter(new Parameter(parameterType1, "entity"));
-        method.addBodyLine("return "+daoTypeName+"."+introspectedTable.getInsertStatementId()+"(entity);");
+        method.addBodyLine("return " + daoTypeName + "." + introspectedTable.getInsertStatementId() + "(entity);");
         topLevelClass.addMethod(method);
 
 
@@ -78,14 +80,14 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
                 FullyQualifiedJavaType type3 = introspectedColumn.getFullyQualifiedJavaType();
                 importedTypes.add(type3);
                 Parameter parameter = new Parameter(type3, introspectedColumn.getJavaProperty());
-                if(sb.toString().length()>0){
+                if (sb.toString().length() > 0) {
                     sb.append(",");
                 }
                 sb.append(introspectedColumn.getJavaProperty());
                 method.addParameter(parameter);
             }
         }
-        method.addBodyLine("return "+daoTypeName+"."+introspectedTable.getDeleteByPrimaryKeyStatementId()+"("+sb.toString()+");");
+        method.addBodyLine("return " + daoTypeName + "." + introspectedTable.getDeleteByPrimaryKeyStatementId() + "(" + sb.toString() + ");");
         topLevelClass.addMethod(method);
 
         //修改
@@ -102,7 +104,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(introspectedTable.getUpdateByPrimaryKeyStatementId());
         method.addParameter(new Parameter(parameterType2, "record"));
-        method.addBodyLine("return "+daoTypeName+"."+introspectedTable.getUpdateByPrimaryKeyStatementId()+"(record);");
+        method.addBodyLine("return " + daoTypeName + "." + introspectedTable.getUpdateByPrimaryKeyStatementId() + "(record);");
         topLevelClass.addMethod(method);
 
         //查询
@@ -117,7 +119,7 @@ public class JavaServiceGenerator extends AbstractJavaGenerator {
 
         method.setReturnType(returnType);
         method.setName(introspectedTable.getSelectAllStatementId());
-        method.addBodyLine("return "+daoTypeName+"."+introspectedTable.getSelectAllStatementId()+"();");
+        method.addBodyLine("return " + daoTypeName + "." + introspectedTable.getSelectAllStatementId() + "();");
         topLevelClass.addMethod(method);
         topLevelClass.addImportedTypes(importedTypes);
 

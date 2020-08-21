@@ -13,9 +13,10 @@ import java.util.TreeSet;
 
 public class JavaControllerGenerator extends AbstractJavaGenerator {
 
-    public JavaControllerGenerator(){
+    public JavaControllerGenerator() {
         super();
     }
+
     public boolean isSimple = true;
 
     public String serviceTypeName = "";
@@ -26,13 +27,13 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
 
         FullyQualifiedJavaType entity = new FullyQualifiedJavaType(introspectedTable.getBaseRecordType());
         //String entityType = entity.getShortName();
-        entityName = entity.getShortName().substring(0, 1).toLowerCase()+entity.getShortName().substring(1);
+        entityName = entity.getShortName().substring(0, 1).toLowerCase() + entity.getShortName().substring(1);
 
-        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable)introspectedTable).getControllerType());
+        FullyQualifiedJavaType type = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getControllerType());
         TopLevelClass topLevelClass = new TopLevelClass(type);
         topLevelClass.setVisibility(JavaVisibility.PUBLIC);
         topLevelClass.addAnnotation("@RestController");
-        topLevelClass.addAnnotation("@RequestMapping(\"/"+entityName+"\")");
+        topLevelClass.addAnnotation("@RequestMapping(\"/" + entityName + "\")");
         topLevelClass.addImportedType("org.springframework.web.bind.annotation.RestController");
         topLevelClass.addImportedType("org.springframework.web.bind.annotation.RequestMapping");
         topLevelClass.addImportedType("org.springframework.beans.factory.annotation.Autowired");
@@ -41,14 +42,13 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
 
         Field field = new Field();
         field.setVisibility(JavaVisibility.PRIVATE);
-        FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType(((MyIntrospectedTable)introspectedTable).getServiceType());
-        serviceTypeName = serviceType.getShortName().substring(0, 1).toLowerCase()+serviceType.getShortName().substring(1);
+        FullyQualifiedJavaType serviceType = new FullyQualifiedJavaType(((MyIntrospectedTable) introspectedTable).getServiceType());
+        serviceTypeName = serviceType.getShortName().substring(0, 1).toLowerCase() + serviceType.getShortName().substring(1);
         field.setType(serviceType);
         field.setName(serviceTypeName);
         field.addAnnotation("@Autowired");
         topLevelClass.addField(field);
         topLevelClass.addImportedType(serviceType);
-
 
 
         //增加
@@ -65,8 +65,8 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
         Set<FullyQualifiedJavaType> importedTypes = new TreeSet<FullyQualifiedJavaType>();
         importedTypes.add(parameterType1);
         method.addParameter(new Parameter(parameterType1, "entity"));
-        method.addBodyLine("return "+serviceTypeName+"."+introspectedTable.getInsertStatementId()+"(entity);");
-        method.addAnnotation("@RequestMapping(\"/"+introspectedTable.getInsertStatementId()+"\")");
+        method.addBodyLine("return " + serviceTypeName + "." + introspectedTable.getInsertStatementId() + "(entity);");
+        method.addAnnotation("@RequestMapping(\"/" + introspectedTable.getInsertStatementId() + "\")");
         topLevelClass.addMethod(method);
 
 
@@ -87,15 +87,15 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
                 FullyQualifiedJavaType type3 = introspectedColumn.getFullyQualifiedJavaType();
                 importedTypes.add(type3);
                 Parameter parameter = new Parameter(type3, introspectedColumn.getJavaProperty());
-                if(sb.toString().length()>0){
+                if (sb.toString().length() > 0) {
                     sb.append(",");
                 }
                 sb.append(introspectedColumn.getJavaProperty());
                 method.addParameter(parameter);
             }
         }
-        method.addBodyLine("return "+serviceTypeName+"."+introspectedTable.getDeleteByPrimaryKeyStatementId()+"("+sb.toString()+");");
-        method.addAnnotation("@RequestMapping(\"/"+introspectedTable.getDeleteByPrimaryKeyStatementId()+"\")");
+        method.addBodyLine("return " + serviceTypeName + "." + introspectedTable.getDeleteByPrimaryKeyStatementId() + "(" + sb.toString() + ");");
+        method.addAnnotation("@RequestMapping(\"/" + introspectedTable.getDeleteByPrimaryKeyStatementId() + "\")");
         topLevelClass.addMethod(method);
 
         //修改
@@ -112,8 +112,8 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
         method.setReturnType(FullyQualifiedJavaType.getIntInstance());
         method.setName(introspectedTable.getUpdateByPrimaryKeyStatementId());
         method.addParameter(new Parameter(parameterType2, "record"));
-        method.addBodyLine("return "+serviceTypeName+"."+introspectedTable.getUpdateByPrimaryKeyStatementId()+"(record);");
-        method.addAnnotation("@RequestMapping(\"/"+introspectedTable.getUpdateByPrimaryKeyStatementId()+"\")");
+        method.addBodyLine("return " + serviceTypeName + "." + introspectedTable.getUpdateByPrimaryKeyStatementId() + "(record);");
+        method.addAnnotation("@RequestMapping(\"/" + introspectedTable.getUpdateByPrimaryKeyStatementId() + "\")");
         topLevelClass.addMethod(method);
 
         //查询
@@ -127,8 +127,8 @@ public class JavaControllerGenerator extends AbstractJavaGenerator {
         returnType.addTypeArgument(listType);
         method.setReturnType(returnType);
         method.setName(introspectedTable.getSelectAllStatementId());
-        method.addBodyLine("return "+serviceTypeName+"."+introspectedTable.getSelectAllStatementId()+"();");
-        method.addAnnotation("@RequestMapping(\"/"+introspectedTable.getSelectAllStatementId()+"\")");
+        method.addBodyLine("return " + serviceTypeName + "." + introspectedTable.getSelectAllStatementId() + "();");
+        method.addAnnotation("@RequestMapping(\"/" + introspectedTable.getSelectAllStatementId() + "\")");
         topLevelClass.addMethod(method);
         topLevelClass.addImportedTypes(importedTypes);
 

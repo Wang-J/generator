@@ -1,23 +1,8 @@
 package com.sws.myGenerator.config;
 
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.Reader;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
 import com.sws.myGenerator.codegen.XmlConstants;
 import com.sws.myGenerator.config.xml.LocalMyBatisGeneratorConfigurationParser;
 import com.sws.myGenerator.config.xml.ParserEntityResolver;
-
 import org.mybatis.generator.config.Configuration;
 import org.mybatis.generator.config.xml.MyBatisGeneratorConfigurationParser;
 import org.mybatis.generator.config.xml.ParserErrorHandler;
@@ -29,6 +14,19 @@ import org.w3c.dom.Node;
 import org.xml.sax.InputSource;
 import org.xml.sax.SAXException;
 import org.xml.sax.SAXParseException;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.Reader;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Properties;
+
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 public class ConfigurationParser {
 
@@ -115,8 +113,8 @@ public class ConfigurationParser {
 
     private MyConfiguration parseMyBatisGeneratorConfiguration(Element rootNode) throws XMLParserException {
         MyBatisGeneratorConfigurationParser parser = new MyBatisGeneratorConfigurationParser(extraProperties);
-        Configuration configuration =  parser.parseConfiguration(rootNode);
-        LocalMyBatisGeneratorConfigurationParser localParser = new LocalMyBatisGeneratorConfigurationParser(extraProperties,configuration);
+        Configuration configuration = parser.parseConfiguration(rootNode);
+        LocalMyBatisGeneratorConfigurationParser localParser = new LocalMyBatisGeneratorConfigurationParser(extraProperties, configuration);
         MyConfiguration myConfiguration = localParser.parseConfiguration(rootNode);
         return myConfiguration;
     }

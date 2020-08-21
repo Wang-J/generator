@@ -3,7 +3,6 @@ package com.sws.myGenerator.config;
 import org.mybatis.generator.api.dom.xml.Attribute;
 import org.mybatis.generator.api.dom.xml.XmlElement;
 import org.mybatis.generator.config.PropertyHolder;
-import org.mybatis.generator.config.TypedPropertyHolder;
 
 import java.util.List;
 
@@ -26,12 +25,15 @@ public class JavaServiceGeneratorConfiguration extends PropertyHolder {
     public String getTargetProject() {
         return targetProject;
     }
+
     public void setTargetProject(String targetProject) {
         this.targetProject = targetProject;
     }
+
     public String getTargetPackage() {
         return targetPackage;
     }
+
     public void setTargetPackage(String targetPackage) {
         this.targetPackage = targetPackage;
     }

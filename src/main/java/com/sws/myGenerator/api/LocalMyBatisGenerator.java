@@ -1,19 +1,5 @@
 package com.sws.myGenerator.api;
 
-import static org.mybatis.generator.internal.util.ClassloaderUtility.getCustomClassloader;
-import static org.mybatis.generator.internal.util.messages.Messages.getString;
-
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStreamWriter;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
 import com.sws.myGenerator.config.MyConfiguration;
 import com.sws.myGenerator.config.MyContext;
 import org.mybatis.generator.api.GeneratedJavaFile;
@@ -21,8 +7,6 @@ import org.mybatis.generator.api.GeneratedXmlFile;
 import org.mybatis.generator.api.ProgressCallback;
 import org.mybatis.generator.api.ShellCallback;
 import org.mybatis.generator.codegen.RootClassInfo;
-import org.mybatis.generator.config.Configuration;
-import org.mybatis.generator.config.Context;
 import org.mybatis.generator.config.MergeConstants;
 import org.mybatis.generator.exception.InvalidConfigurationException;
 import org.mybatis.generator.exception.ShellException;
@@ -30,6 +14,16 @@ import org.mybatis.generator.internal.DefaultShellCallback;
 import org.mybatis.generator.internal.NullProgressCallback;
 import org.mybatis.generator.internal.ObjectFactory;
 import org.mybatis.generator.internal.XmlFileMergerJaxp;
+
+import java.io.*;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.mybatis.generator.internal.util.ClassloaderUtility.getCustomClassloader;
+import static org.mybatis.generator.internal.util.messages.Messages.getString;
 
 public class LocalMyBatisGenerator {
 
@@ -163,7 +157,7 @@ public class LocalMyBatisGenerator {
             if (targetFile.exists()) {
                 if (shellCallback.isMergeSupported()) {
                     source = shellCallback.mergeJavaFile(gjf
-                            .getFormattedContent(), targetFile,
+                                    .getFormattedContent(), targetFile,
                             MergeConstants.OLD_ELEMENT_TAGS,
                             gjf.getFileEncoding());
                 } else if (shellCallback.isOverwriteEnabled()) {
